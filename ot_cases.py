@@ -1,3 +1,4 @@
+from pprint import pprint
 import pymongo
 import config
 import csv
@@ -38,8 +39,8 @@ def update(mycol, row):
                           "Closing_date": row["Дата (закрыт)"],
                           "Status": status}}
 
-    x = mycol.update_one(myquery, newvalues)
-    print(x)
+    results = mycol.update_one(myquery, newvalues)
+    return results
 
 
 def insert(mycol, row):
@@ -65,15 +66,16 @@ def insert(mycol, row):
         "Comments": "",
         "Status": status,
         "Opener": ""}
-    x = mycol.insert_one(mydict)
-
+    results = mycol.insert_one(mydict)
+    return results
 
 
 def delete(mycol, id):
     """
     Delete one document in DB
     """
-    mycol.delete_one({"_id": id})
+    results = mycol.delete_one({"_id": id})
+    return results
 
 
 def main():
