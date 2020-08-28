@@ -7,14 +7,25 @@ mongo_db = config.mongo_db
 mongo_collection = config.mongo_collection
 
 
-def read_file():
-    with open('OT Tickets.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        line_count = 0
+def file(csv_file):
+    """
+     Read a CSV file using csv.DictReader
+    """
+    csv_reader = csv.DictReader(csv_file, delimiter=',')
     return csv_reader
 
 
+def cloud_file():
+    """
+     Read a CSV file using Google SpreadSheet API
+    """
+    pass
+
+
 def update(mycol, row):
+    """
+    Update one document in DB
+    """
     if row["Ответ MTS"] == "Открыт":
         status = "Opened"
     else:
@@ -32,6 +43,9 @@ def update(mycol, row):
 
 
 def insert(mycol, row):
+    """
+    Insert one document to DB
+    """
     if row["Ответ MTS"] == "Открыт":
         status = "Opened"
     else:
@@ -52,16 +66,19 @@ def insert(mycol, row):
         "Status": status,
         "Opener": ""}
     x = mycol.insert_one(mydict)
-    print(x)
+
 
 
 def delete(mycol, id):
+    """
+    Delete one document in DB
+    """
     mycol.delete_one({"_id": id})
 
 
 def main():
     with open('OT Tickets.csv', encoding="utf8") as csv_file:
-        csv_reader = csv.DictReader(csv_file, delimiter=',')
+        csv_reader = file(csv_file)
 
         myclient = pymongo.MongoClient(mongo_ip)
         mydb = myclient[mongo_db]
