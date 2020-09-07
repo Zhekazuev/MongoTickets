@@ -90,12 +90,13 @@ def main():
         mycol = mydb[mongo_collection]
 
         for row in csv_reader:
-            records = mycol.find({"RT №": row["№ кейса в RT"]})
-            if records.count() == 0:
+            records = mycol.find({"RT №": row["\ufeffRT"]})
+            count = mycol.count_documents({"RT №": row["\ufeffRT"]})
+            if count == 0:
                 insert(mycol, row)
-            elif records.count() == 1:
+            elif count == 1:
                 update(mycol, row)
-            elif records.count() == 2:
+            elif count == 2:
                 delete(mycol, records[0]["_id"])
                 update(mycol, row)
 
