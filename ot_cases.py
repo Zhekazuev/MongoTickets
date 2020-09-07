@@ -90,8 +90,8 @@ def main():
         mycol = mydb[mongo_collection]
 
         for row in csv_reader:
-            records = mycol.find({"RT №": row["\ufeffRT"]})
-            count = mycol.count_documents({"RT №": row["\ufeffRT"]})
+            records = mycol.find({"RT №": row["RT"]})
+            count = mycol.count_documents({"RT №": row["RT"]})
             if count == 0:
                 insert(mycol, row)
             elif count == 1:
