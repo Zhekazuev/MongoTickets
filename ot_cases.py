@@ -1,4 +1,7 @@
-from pprint import pprint
+"""
+Перенос заявок OpenTechnologies в БД
+http://jira/browse/PSSER-2527
+"""
 import pymongo
 import config
 import csv
