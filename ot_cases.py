@@ -8,7 +8,7 @@ import csv
 
 mongo_ip = config.mongo_ip
 mongo_db = config.mongo_db
-mongo_collection = config.mongo_collection
+mongo_collection = config.mongo_collection_ot
 
 
 def file(csv_file):
@@ -102,5 +102,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
